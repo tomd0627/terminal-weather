@@ -1,0 +1,121 @@
+/* ── Outermost screen wrapper (simulates CRT display) ── */
+.screen {
+  min-block-size: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── CRT vignette: darkened edges suggest screen curvature ── */
+.screen::before {
+  background: radial-gradient(ellipse at center, transparent 55%, rgb(0 0 0 / 0.45) 100%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 998;
+}
+
+/* ── Scanline overlay ── */
+.screen__scanlines {
+  animation: flicker var(--duration-flicker) ease-in-out infinite;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    var(--color-scanline) 2px,
+    var(--color-scanline) 4px
+  );
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 999;
+}
+
+/* ── Main terminal content area ── */
+.terminal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-inline: auto;
+  max-inline-size: var(--terminal-max-inline-size);
+  min-block-size: 100vh;
+  padding-block: var(--space-8);
+  padding-inline: var(--terminal-padding-inline);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Terminal header bar ── */
+.terminal__header {
+  align-items: center;
+  border-block-end: var(--border-dim);
+  display: flex;
+  justify-content: space-between;
+  padding-block-end: var(--space-3);
+}
+
+.terminal__title {
+  color: var(--color-bright);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-shadow: var(--glow-text);
+}
+
+.terminal__status-bar {
+  align-items: center;
+  display: flex;
+  gap: var(--space-4);
+}
+
+.terminal__status-indicator {
+  color: var(--color-phosphor);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+}
+
+.terminal__status-indicator--online {
+  color: var(--color-bright);
+}
+
+.terminal__status-indicator--error {
+  color: var(--color-error);
+}
+
+/* ── Terminal footer bar ── */
+.terminal__footer {
+  border-block-start: var(--border-dim);
+  color: var(--color-dim);
+  display: flex;
+  font-size: var(--font-size-xs);
+  justify-content: space-between;
+  letter-spacing: 0.06em;
+  margin-block-start: auto;
+  padding-block-start: var(--space-3);
+}
+
+/* ── Boot sequence container ── */
+.boot {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  padding-block: var(--space-8);
+  padding-inline: var(--terminal-padding-inline);
+  position: relative;
+  z-index: 1;
+}
+
+.boot__output {
+  color: var(--color-phosphor);
+  flex: 1;
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.boot__prompt-line {
+  color: var(--color-bright);
+  display: flex;
+  gap: var(--space-1);
+  margin-block-start: var(--space-4);
+}

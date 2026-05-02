@@ -1,0 +1,31 @@
+{
+  "name": "terminal-weather",
+  "version": "1.0.0",
+  "description": "ATMOS-1 — Retro amber phosphor terminal weather app. Powered by Open-Meteo.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint:js": "eslint \"src/js/**/*.js\"",
+    "lint:css": "stylelint \"src/css/**/*.css\"",
+    "lint:format": "prettier --check \"src/**/*.{html,js,css}\"",
+    "lint": "npm run lint:format && npm run lint:js && npm run lint:css",
+    "format": "prettier --write \"src/**/*.{html,js,css}\"",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomd0627/terminal-weather.git"
+  },
+  "author": "Tom DeLuca",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "stylelint": "^17.9.1",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^8.1.1",
+    "stylelint-use-logical": "^2.1.3"
+  }
+}

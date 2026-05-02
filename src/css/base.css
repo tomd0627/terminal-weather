@@ -1,0 +1,101 @@
+html {
+  background-color: var(--color-bg);
+  color: var(--color-phosphor);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  overflow-x: hidden;
+  scrollbar-color: var(--color-dim) var(--color-bg);
+  scrollbar-width: thin;
+}
+
+body {
+  background-color: var(--color-bg);
+  min-block-size: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Text selection ── */
+::selection {
+  background-color: var(--color-phosphor);
+  color: var(--color-bg);
+}
+
+/* ── Focus visible indicator ── */
+:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--color-cursor);
+  outline-offset: 3px;
+}
+
+/* ── Skip to main content ── */
+.skip-link {
+  background-color: var(--color-bg);
+  block-size: 1px;
+  border: var(--border-phosphor);
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  color: var(--color-bright);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  inline-size: 1px;
+  overflow: hidden;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  position: absolute;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.skip-link:focus-visible {
+  block-size: auto;
+  clip: auto;
+  clip-path: none;
+  inline-size: auto;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  overflow: visible;
+  z-index: 9999;
+}
+
+/* ── Phosphor text glow on key elements ── */
+.glow {
+  text-shadow: var(--glow-text);
+}
+
+/* ── Inline cursor glyph ── */
+.cursor-blink {
+  animation: cursor-blink var(--duration-blink) step-end infinite;
+  color: var(--color-cursor);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ── Utility: visually hidden but accessible ── */
+.visually-hidden {
+  block-size: 1px;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+/* ── Utility: section label style ── */
+.section-label {
+  border-block-end: var(--border-ghost);
+  color: var(--color-bright);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  padding-block-end: var(--space-2);
+  text-shadow: var(--glow-text);
+}
+
+/* ── Horizontal rule as terminal separator ── */
+.terminal-hr {
+  block-size: 1px;
+  border: none;
+  border-block-start: var(--border-dim);
+  margin-block: var(--space-4);
+}

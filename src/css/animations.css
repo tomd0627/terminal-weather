@@ -1,0 +1,132 @@
+/* ── Cursor blink ── */
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ── Screen flicker (subtle, occasional) ── */
+@keyframes flicker {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+
+  97% {
+    opacity: 0.88;
+  }
+
+  98% {
+    opacity: 1;
+  }
+
+  98.5% {
+    opacity: 0.92;
+  }
+
+  99% {
+    opacity: 1;
+  }
+}
+
+/* ── Loading dots ── */
+@keyframes loading-dots {
+  0% {
+    content: "";
+  }
+
+  25% {
+    content: ".";
+  }
+
+  50% {
+    content: "..";
+  }
+
+  75% {
+    content: "...";
+  }
+}
+
+/* ── Fade in (for weather panels appearing after boot) ── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Boot reveal (lines appearing progressively) ── */
+@keyframes line-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* ── Phosphor glow pulse (used on temperature value) ── */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px currentcolor,
+      0 0 10px rgb(232 160 32 / 0.3);
+  }
+
+  50% {
+    text-shadow:
+      0 0 8px currentcolor,
+      0 0 20px rgb(232 160 32 / 0.5);
+  }
+}
+
+/* ── Apply animations ── */
+
+.weather-panel {
+  animation: fade-in var(--duration-base) ease-out both;
+}
+
+.temp-display__value {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ── Reduced motion: disable all decorative animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .screen__scanlines {
+    animation: none;
+  }
+
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+
+  .weather-panel {
+    animation: none;
+  }
+
+  .temp-display__value {
+    animation: none;
+    text-shadow: var(--glow-text);
+  }
+
+  .loading-indicator::after {
+    animation: none;
+    content: "...";
+  }
+}

@@ -1,0 +1,504 @@
+/* ══════════════════════════════════════════════════════
+   SEARCH / LOCATION INPUT
+   ══════════════════════════════════════════════════════ */
+
+.search-section {
+  border: var(--border-dim);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  position: relative;
+  transition: border-color var(--duration-fast);
+}
+
+.search-section:focus-within {
+  border-color: var(--color-phosphor);
+  box-shadow: var(--glow-soft);
+}
+
+.search-prompt {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.search-prompt__label {
+  color: var(--color-dim);
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
+.search-prompt__input {
+  appearance: none;
+  background: transparent;
+  border: none;
+  caret-color: var(--color-cursor);
+  color: var(--color-prompt);
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  letter-spacing: 0.04em;
+  min-inline-size: 0;
+  outline: none;
+}
+
+.search-prompt__input::placeholder {
+  color: var(--color-ghost);
+  letter-spacing: 0.05em;
+}
+
+.search-prompt__geo-btn {
+  appearance: none;
+  background: transparent;
+  border: var(--border-dim);
+  color: var(--color-dim);
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  transition:
+    border-color var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.search-prompt__geo-btn:hover {
+  border-color: var(--color-phosphor);
+  color: var(--color-bright);
+}
+
+.search-prompt__geo-btn:focus-visible {
+  border-color: var(--color-cursor);
+  color: var(--color-bright);
+  outline: 2px solid var(--color-cursor);
+  outline-offset: 2px;
+}
+
+/* ── City autocomplete suggestions ── */
+
+.search-suggestions {
+  background-color: var(--color-bg);
+  border: var(--border-dim);
+  border-block-start: var(--border-ghost);
+  inset-block-start: 100%;
+  inset-inline: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 10;
+}
+
+.search-suggestions__item {
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  padding-block: var(--space-2);
+  padding-inline-end: var(--space-4);
+  padding-inline-start: var(--space-3);
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.search-suggestions__item::before {
+  color: var(--color-ghost);
+  content: "> ";
+}
+
+.search-suggestions__item:hover,
+.search-suggestions__item[aria-selected="true"] {
+  background-color: var(--color-ghost);
+  color: var(--color-bright);
+}
+
+.search-suggestions__item:hover::before,
+.search-suggestions__item[aria-selected="true"]::before {
+  color: var(--color-phosphor);
+}
+
+/* ══════════════════════════════════════════════════════
+   CURRENT CONDITIONS
+   ══════════════════════════════════════════════════════ */
+
+.current-conditions {
+  border: var(--border-dim);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+}
+
+.current-conditions__header {
+  align-items: baseline;
+  border-block-end: var(--border-ghost);
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+  margin-block-end: var(--space-5, 1.25rem);
+  padding-block-end: var(--space-2);
+}
+
+.current-conditions__location {
+  color: var(--color-phosphor);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  text-align: end;
+}
+
+.current-conditions__body {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: auto 1fr;
+}
+
+/* ── Temperature column ── */
+
+.temp-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.temp-display__main {
+  align-items: flex-start;
+  display: flex;
+  line-height: 1;
+}
+
+.temp-display__value {
+  color: var(--color-bright);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-shadow: var(--glow-strong);
+}
+
+.temp-display__unit {
+  align-self: flex-start;
+  color: var(--color-phosphor);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  padding-block-start: 0.3em;
+  text-shadow: var(--glow-soft);
+}
+
+.temp-display__feels-like {
+  color: var(--color-dim);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  padding-block-start: var(--space-2);
+}
+
+.temp-display__feels-like span {
+  color: var(--color-phosphor);
+}
+
+/* ── Conditions column ── */
+
+.conditions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+.condition-row {
+  align-items: baseline;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.condition-row__label {
+  color: var(--color-dim);
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  min-inline-size: 11ch;
+}
+
+.condition-row__value {
+  color: var(--color-phosphor);
+  font-size: var(--font-size-base);
+  letter-spacing: 0.04em;
+}
+
+.condition-row__value--bright {
+  color: var(--color-bright);
+  text-shadow: var(--glow-soft);
+}
+
+.condition-row__unit {
+  color: var(--color-dim);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  margin-inline-start: var(--space-1);
+}
+
+/* ── Weather condition code badge ── */
+
+.wx-code {
+  border: var(--border-ghost);
+  color: var(--color-dim);
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.05em;
+  margin-inline-end: var(--space-1);
+  padding-block: 0;
+  padding-inline: var(--space-1);
+}
+
+/* ══════════════════════════════════════════════════════
+   7-DAY FORECAST
+   ══════════════════════════════════════════════════════ */
+
+.forecast {
+  border: var(--border-dim);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+}
+
+.forecast__header {
+  border-block-end: var(--border-ghost);
+  margin-block-end: var(--space-3);
+  padding-block-end: var(--space-2);
+}
+
+.forecast__table {
+  display: grid;
+  font-size: var(--font-size-sm);
+  grid-template-columns: 10ch 1fr 5ch 5ch 6ch;
+}
+
+/* Header row — styled via child spans since parent has display:contents */
+
+.forecast__table-head {
+  display: contents;
+}
+
+.forecast__table-head > span {
+  border-block-end: var(--border-dim);
+  color: var(--color-dim);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.1em;
+  padding-block: var(--space-1);
+}
+
+/* Body rowgroup and data rows — both use display:contents to
+   participate directly in the parent CSS Grid */
+
+#forecast-rows {
+  display: contents;
+}
+
+.forecast__row {
+  display: contents;
+}
+
+.forecast__row > * {
+  border-block-end: var(--border-ghost);
+  padding-block: var(--space-2);
+}
+
+.forecast__row:last-child > * {
+  border-block-end: none;
+}
+
+.forecast__day {
+  align-items: center;
+  color: var(--color-phosphor);
+  display: flex;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+}
+
+.forecast__day--today {
+  color: var(--color-bright);
+  text-shadow: var(--glow-soft);
+}
+
+.forecast__condition {
+  align-items: center;
+  color: var(--color-phosphor);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.forecast__temp-hi,
+.forecast__temp-lo {
+  align-items: center;
+  display: flex;
+  font-size: var(--font-size-sm);
+}
+
+.forecast__temp-hi {
+  color: var(--color-bright);
+  font-weight: var(--font-weight-medium);
+}
+
+.forecast__temp-lo {
+  color: var(--color-dim);
+}
+
+.forecast__precip {
+  align-items: center;
+  color: var(--color-phosphor);
+  display: flex;
+  font-size: var(--font-size-xs);
+  justify-content: flex-end;
+  letter-spacing: 0.04em;
+}
+
+.forecast__precip--high {
+  color: var(--color-error);
+}
+
+/* ══════════════════════════════════════════════════════
+   LOADING INDICATOR
+   ══════════════════════════════════════════════════════ */
+
+.loading-indicator {
+  align-items: center;
+  color: var(--color-dim);
+  display: flex;
+  font-size: var(--font-size-base);
+  gap: var(--space-2);
+  letter-spacing: 0.1em;
+  padding-block: var(--space-8);
+  padding-inline: var(--space-4);
+}
+
+.loading-indicator::after {
+  animation: loading-dots 1.2s steps(4, end) infinite;
+  content: "";
+}
+
+/* ══════════════════════════════════════════════════════
+   ERROR PANEL
+   ══════════════════════════════════════════════════════ */
+
+.error-panel {
+  border: 1px solid var(--color-error);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-4);
+}
+
+.error-panel__eyebrow {
+  color: var(--color-error);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.14em;
+  margin-block-end: var(--space-3);
+  text-shadow: 0 0 8px rgb(255 106 20 / 0.5);
+}
+
+.error-panel__message {
+  color: var(--color-phosphor);
+  font-size: var(--font-size-base);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+  margin-block-end: var(--space-4);
+}
+
+.error-panel__prompt-line {
+  align-items: center;
+  color: var(--color-bright);
+  display: flex;
+  font-size: var(--font-size-base);
+  gap: var(--space-1);
+  letter-spacing: 0.06em;
+  margin-block-start: var(--space-4);
+}
+
+.error-panel__key {
+  appearance: none;
+  background: transparent;
+  border: var(--border-phosphor);
+  color: var(--color-bright);
+  cursor: pointer;
+  display: inline-block;
+  font-weight: var(--font-weight-bold);
+  padding-block: 0;
+  padding-inline: var(--space-2);
+  text-transform: uppercase;
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.error-panel__key:hover,
+.error-panel__key:focus-visible {
+  background-color: var(--color-phosphor);
+  color: var(--color-bg);
+}
+
+.error-panel__key:focus-visible {
+  outline: 2px solid var(--color-cursor);
+  outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════════════
+   BOOT SEQUENCE
+   ══════════════════════════════════════════════════════ */
+
+.boot__line {
+  color: var(--color-phosphor);
+  display: block;
+}
+
+.boot__line--dim {
+  color: var(--color-dim);
+}
+
+.boot__line--bright {
+  color: var(--color-bright);
+  text-shadow: var(--glow-soft);
+}
+
+.boot__line--heading {
+  color: var(--color-bright);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-shadow: var(--glow-strong);
+}
+
+.boot__line--ok::after {
+  color: var(--color-bright);
+  content: " [OK]";
+}
+
+.boot__line--fail::after {
+  color: var(--color-error);
+  content: " [FAIL]";
+}
+
+.boot__separator {
+  color: var(--color-ghost);
+  display: block;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  user-select: none;
+}
+
+.boot__progress-bar {
+  color: var(--color-phosphor);
+  display: inline-block;
+  letter-spacing: -0.05em;
+}
+
+.boot__progress-filled {
+  color: var(--color-bright);
+  text-shadow: var(--glow-soft);
+}
+
+.boot__prompt {
+  align-items: center;
+  color: var(--color-bright);
+  display: flex;
+  font-size: var(--font-size-base);
+  gap: var(--space-1);
+  margin-block-start: var(--space-6);
+}

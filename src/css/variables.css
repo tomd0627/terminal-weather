@@ -1,0 +1,57 @@
+:root {
+  /* ── Color palette: Amber Phosphor CRT ── */
+  --color-bg: #080600;
+  --color-bright: #ffd060;
+  --color-cursor: #ffcc00;
+  --color-dim: #7a4e0a;
+  --color-error: #ff6a14;
+  --color-ghost: #3d2705;
+  --color-phosphor: #e8a020;
+  --color-prompt: #ffeaa0;
+  --color-scanline: rgb(0 0 0 / 0.18);
+
+  /* ── Typography ── */
+  --font-mono: "IBM Plex Mono", "Courier New", Courier, monospace;
+  --font-size-2xl: 3.5rem;
+  --font-size-base: 0.875rem;
+  --font-size-lg: 1.25rem;
+  --font-size-md: 1rem;
+  --font-size-sm: 0.75rem;
+  --font-size-xl: 2rem;
+  --font-size-xs: 0.6875rem;
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+
+  /* ── Spacing ── */
+  --space-1: 0.25rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* ── Layout ── */
+  --terminal-max-inline-size: 900px;
+  --terminal-padding-inline: var(--space-6);
+  --terminal-padding-block: var(--space-4);
+
+  /* ── Borders ── */
+  --border-dim: 1px solid var(--color-dim);
+  --border-ghost: 1px solid var(--color-ghost);
+  --border-phosphor: 1px solid var(--color-phosphor);
+
+  /* ── Animation ── */
+  --duration-base: 300ms;
+  --duration-blink: 1s;
+  --duration-fast: 150ms;
+  --duration-flicker: 8s;
+
+  /* ── Phosphor glow ── */
+  --glow-soft: 0 0 6px rgb(232 160 32 / 0.35);
+  --glow-strong: 0 0 12px rgb(232 160 32 / 0.55);
+  --glow-text: 0 0 4px currentcolor, 0 0 10px rgb(232 160 32 / 0.3);
+}

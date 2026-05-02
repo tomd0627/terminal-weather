@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ATMOS-1 — Real weather forecast data presented in a retro amber phosphor terminal aesthetic. Powered by Open-Meteo."
+    />
+    <meta name="theme-color" content="#080600" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ATMOS-1 // Atmospheric Data Terminal" />
+    <meta
+      property="og:description"
+      content="Real forecast data. Amber phosphor aesthetic. Powered by Open-Meteo."
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ATMOS-1 // Atmospheric Data Terminal" />
+    <meta name="twitter:description" content="Real forecast data. Retro terminal aesthetic." />
+
+    <title>ATMOS-1 // Atmospheric Data Terminal</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/favicon.svg" />
+
+    <!-- Font preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- IBM Plex Mono: Regular 400, Medium 500, Bold 700, Italic 400 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles (load order matters for cascade) -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <div class="screen">
+      <!-- CRT scanline overlay: decorative, pointer-events disabled -->
+      <div class="screen__scanlines" aria-hidden="true"></div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           BOOT SEQUENCE
+           Phase 3: shown first; hidden by JS after animation.
+           Phase 2: visible for design review.
+           ═══════════════════════════════════════════════════════ -->
+      <section class="boot" id="boot-section" aria-label="System initialization sequence">
+        <div
+          class="boot__output"
+          id="boot-output"
+          role="log"
+          aria-label="System boot log"
+          aria-live="polite"
+        >
+          <span class="boot__line boot__line--heading">ATMOS-1 ATMOSPHERIC DATA TERMINAL</span>
+          <span class="boot__line boot__line--dim">BIOS REVISION 2.3.1 // BUILD 19831021</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line">HARDWARE INITIALIZATION</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line boot__line--ok"
+            >CPU: Z80A @ 4.000 MHz ......................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >MEMORY: 64K BASE RAM ........................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >DISPLAY: AMBER PHOSPHOR P3 ..................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >KEYBOARD: ASCII-MATRIX 83-KEY ...............</span
+          >
+          <span class="boot__separator">&nbsp;</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line">NETWORK SUBSYSTEM</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line boot__line--ok"
+            >ARPANET INTERFACE MODULE ...................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >TRANSPORT PROTOCOL: TCP/IP .................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >DNS RESOLVER CACHE: CLEARED ................</span
+          >
+          <span class="boot__separator">&nbsp;</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line">ATMOSPHERIC SUBSYSTEM</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line boot__line--ok"
+            >SENSOR ARRAY CALIBRATION ...................</span
+          >
+          <span class="boot__line boot__line--ok"
+            >BAROMETRIC REFERENCE: 1013.25 HPA ..........</span
+          >
+          <span class="boot__line boot__line--ok"
+            >TEMPERATURE UNIT: FAHRENHEIT ...............</span
+          >
+          <span class="boot__line boot__line--ok"
+            >DATA PROVIDER: OPEN-METEO.COM ..............</span
+          >
+          <span class="boot__separator">&nbsp;</span>
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__line"
+            >SATELLITE UPLINK:
+            <span class="boot__progress-bar"
+              ><span class="boot__progress-filled">████████</span>░░</span
+            >
+            82% SIGNAL</span
+          >
+          <span class="boot__separator">─────────────────────────────────────────────────────</span>
+          <span class="boot__separator">&nbsp;</span>
+          <span class="boot__line boot__line--bright">SYSTEM READY.</span>
+          <span class="boot__separator">&nbsp;</span>
+        </div>
+
+        <div class="boot__prompt" aria-label="Terminal prompt">
+          <span aria-hidden="true">&gt;</span>
+          <span class="cursor-blink" aria-hidden="true" role="presentation">_</span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════
+           MAIN WEATHER INTERFACE
+           Phase 3: initially hidden; revealed by JS after boot.
+           Phase 2: visible for design review (no hidden attr).
+           ═══════════════════════════════════════════════════════ -->
+      <main class="terminal" id="main-content" aria-label="Weather terminal" hidden>
+        <!-- Terminal header bar -->
+        <header class="terminal__header">
+          <div class="terminal__title" aria-label="Application name">
+            ATMOS-1 // ATMOSPHERIC DATA TERMINAL v2.3.1
+          </div>
+          <div class="terminal__status-bar" aria-live="polite" aria-label="System status">
+            <span
+              class="terminal__status-indicator terminal__status-indicator--online"
+              id="sys-status"
+              >SYS:ONLINE</span
+            >
+            <span class="terminal__status-indicator" id="net-status">NET:CONNECTED</span>
+          </div>
+        </header>
+
+        <!-- Location search -->
+        <section class="search-section" aria-label="Location search">
+          <div class="search-prompt" role="group" aria-label="Location input">
+            <span class="search-prompt__label" aria-hidden="true">LOCATION&gt;</span>
+            <input
+              type="text"
+              id="location-input"
+              class="search-prompt__input"
+              placeholder="ENTER CITY NAME..."
+              aria-label="Enter city name or use GPS"
+              aria-autocomplete="list"
+              aria-controls="location-suggestions"
+              aria-expanded="false"
+              autocomplete="off"
+              role="combobox"
+              spellcheck="false"
+            />
+            <button
+              type="button"
+              class="search-prompt__geo-btn"
+              id="geo-btn"
+              aria-label="Use current GPS location"
+            >
+              &#91;GPS&#93;
+            </button>
+          </div>
+
+          <ul
+            class="search-suggestions"
+            id="location-suggestions"
+            role="listbox"
+            aria-label="City name suggestions"
+            hidden
+          ></ul>
+        </section>
+
+        <!-- Current conditions
+             (static New York data for Phase 2 design review) -->
+        <section
+          class="current-conditions weather-panel"
+          id="current-conditions"
+          aria-label="Current weather conditions"
+          hidden
+        >
+          <div class="current-conditions__header">
+            <span class="section-label">// CURRENT CONDITIONS</span>
+            <span class="current-conditions__location" id="current-location" aria-live="polite">
+              NEW YORK, NY
+            </span>
+          </div>
+
+          <div class="current-conditions__body">
+            <!-- Temperature column -->
+            <div class="temp-display" role="group" aria-label="Temperature">
+              <div class="temp-display__main">
+                <span
+                  class="temp-display__value"
+                  id="current-temp"
+                  aria-label="Current temperature: 68 degrees Fahrenheit"
+                  >68</span
+                >
+                <span class="temp-display__unit" aria-hidden="true">°F</span>
+              </div>
+              <p class="temp-display__feels-like">
+                <span aria-hidden="true">FEELS LIKE:&nbsp;</span>
+                <span id="feels-like" aria-label="Feels like 71 degrees Fahrenheit">71</span
+                ><span aria-hidden="true">°F</span>
+              </p>
+            </div>
+
+            <!-- Conditions detail column -->
+            <div class="conditions-grid" role="group" aria-label="Weather conditions detail">
+              <div class="condition-row">
+                <span class="condition-row__label" aria-hidden="true">STATUS&gt;</span>
+                <span class="condition-row__value condition-row__value--bright" id="weather-desc">
+                  <span class="wx-code" aria-hidden="true">PRCD</span>
+                  PARTLY CLOUDY
+                </span>
+              </div>
+
+              <div class="condition-row">
+                <span class="condition-row__label" aria-hidden="true">HUMIDITY&gt;</span>
+                <span class="condition-row__value" id="humidity">62</span>
+                <span class="condition-row__unit" aria-hidden="true">%</span>
+              </div>
+
+              <div class="condition-row">
+                <span class="condition-row__label" aria-hidden="true">WIND&gt;</span>
+                <span class="condition-row__value" id="wind-speed">12</span>
+                <span class="condition-row__unit" aria-hidden="true"> MPH</span>
+                <span class="condition-row__value" id="wind-dir" aria-label="wind direction: East">
+                  E
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7-day forecast
+             (static data for Phase 2 design review) -->
+        <section
+          class="forecast weather-panel"
+          id="forecast-section"
+          aria-label="7-day weather forecast"
+          hidden
+        >
+          <div class="forecast__header">
+            <span class="section-label">// 7-DAY FORECAST</span>
+          </div>
+
+          <div class="forecast__table" role="table" aria-label="Daily weather forecast">
+            <!-- Header row -->
+            <div class="forecast__table-head" role="row">
+              <span role="columnheader">DAY</span>
+              <span role="columnheader">CONDITION</span>
+              <span role="columnheader">HI</span>
+              <span role="columnheader">LO</span>
+              <span role="columnheader">PRCP</span>
+            </div>
+
+            <!-- Forecast rows — JS will regenerate these in Phase 3 -->
+            <div id="forecast-rows" role="rowgroup">
+              <div class="forecast__row" role="row">
+                <span class="forecast__day forecast__day--today" role="cell">FRI 05/02</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">PRCD</span>
+                  PARTLY CLOUDY
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 68 degrees">68°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 54 degrees">54°</span>
+                <span class="forecast__precip" role="cell" aria-label="10% chance of precipitation"
+                  >10%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">SAT 05/03</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">RAIN</span>
+                  SHOWERS
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 61 degrees">61°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 49 degrees">49°</span>
+                <span
+                  class="forecast__precip forecast__precip--high"
+                  role="cell"
+                  aria-label="70% chance of precipitation"
+                  >70%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">SUN 05/04</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">CLDS</span>
+                  OVERCAST
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 59 degrees">59°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 48 degrees">48°</span>
+                <span class="forecast__precip" role="cell" aria-label="40% chance of precipitation"
+                  >40%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">MON 05/05</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">CLR</span>
+                  CLEAR SKIES
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 72 degrees">72°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 55 degrees">55°</span>
+                <span class="forecast__precip" role="cell" aria-label="5% chance of precipitation"
+                  >5%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">TUE 05/06</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">CLR</span>
+                  CLEAR SKIES
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 75 degrees">75°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 58 degrees">58°</span>
+                <span class="forecast__precip" role="cell" aria-label="5% chance of precipitation"
+                  >5%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">WED 05/07</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">PRCD</span>
+                  PARTLY CLOUDY
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 70 degrees">70°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 56 degrees">56°</span>
+                <span class="forecast__precip" role="cell" aria-label="15% chance of precipitation"
+                  >15%</span
+                >
+              </div>
+
+              <div class="forecast__row" role="row">
+                <span class="forecast__day" role="cell">THU 05/08</span>
+                <span class="forecast__condition" role="cell">
+                  <span class="wx-code" aria-hidden="true">STRM</span>
+                  STORMS
+                </span>
+                <span class="forecast__temp-hi" role="cell" aria-label="High: 63 degrees">63°</span>
+                <span class="forecast__temp-lo" role="cell" aria-label="Low: 51 degrees">51°</span>
+                <span
+                  class="forecast__precip forecast__precip--high"
+                  role="cell"
+                  aria-label="65% chance of precipitation"
+                  >65%</span
+                >
+              </div>
+            </div>
+            <!-- /#forecast-rows -->
+          </div>
+          <!-- /.forecast__table -->
+        </section>
+
+        <!-- Error panel — hidden by default, shown by JS on network/API errors -->
+        <section
+          class="error-panel"
+          id="error-panel"
+          aria-label="System error"
+          aria-live="assertive"
+          hidden
+        >
+          <div class="error-panel__eyebrow" id="error-code">&#91;ERR-001&#93;</div>
+          <p class="error-panel__message" id="error-message">
+            CONNECTION TIMEOUT.<br />
+            UNABLE TO REACH WEATHER DATA SERVER.<br />
+            VERIFY NETWORK CONNECTION AND TRY AGAIN.
+          </p>
+          <div class="error-panel__prompt-line" role="group" aria-label="Retry prompt">
+            <span aria-hidden="true">RETRY?</span>
+            <button
+              type="button"
+              class="error-panel__key"
+              id="retry-btn"
+              aria-label="Retry connection (press Y)"
+            >
+              Y
+            </button>
+            <span aria-hidden="true">/</span>
+            <button
+              type="button"
+              class="error-panel__key"
+              id="dismiss-btn"
+              aria-label="Dismiss error (press N)"
+            >
+              N
+            </button>
+          </div>
+        </section>
+
+        <!-- Terminal footer -->
+        <footer class="terminal__footer">
+          <span>DATA: OPEN-METEO.COM // NO API KEY REQUIRED</span>
+          <span id="last-updated" aria-live="polite" aria-label="Last updated time"></span>
+        </footer>
+      </main>
+      <!-- /#main-content -->
+    </div>
+    <!-- /.screen -->
+
+    <!-- ES modules are deferred by default -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
