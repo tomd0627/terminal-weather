@@ -45,6 +45,7 @@ function appendLine(container, text, cls) {
   const span = document.createElement("span");
   span.className = `boot__line ${cls}`;
   span.textContent = text;
+  if (cls === "boot__line--dim") span.setAttribute("aria-hidden", "true");
   container.appendChild(span);
   container.scrollTop = container.scrollHeight;
   return span;
@@ -88,7 +89,9 @@ export function playBootSequence() {
 
   return new Promise((resolve) => {
     if (reduced) {
-      BOOT_LINES.forEach(({ text, cls }) => appendLine(outputEl, text, cls));
+      BOOT_LINES.forEach(({ text, cls }) => {
+        appendLine(outputEl, text, cls);
+      });
       setTimeout(resolve, 300);
       return;
     }

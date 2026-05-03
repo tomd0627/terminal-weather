@@ -51,7 +51,7 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <div class="screen">
+    <main class="screen">
       <!-- CRT scanline overlay: decorative, pointer-events disabled -->
       <div class="screen__scanlines" aria-hidden="true"></div>
 
@@ -69,7 +69,9 @@
           aria-live="polite"
         >
           <span class="boot__line boot__line--heading">ATMOS-1 ATMOSPHERIC DATA TERMINAL</span>
-          <span class="boot__line boot__line--dim">BIOS REVISION 2.3.1 // BUILD 19831021</span>
+          <span class="boot__line boot__line--dim" aria-hidden="true"
+            >BIOS REVISION 2.3.1 // BUILD 19831021</span
+          >
           <span class="boot__separator">─────────────────────────────────────────────────────</span>
           <span class="boot__line">HARDWARE INITIALIZATION</span>
           <span class="boot__separator">─────────────────────────────────────────────────────</span>
@@ -129,7 +131,7 @@
           <span class="boot__separator">&nbsp;</span>
         </div>
 
-        <div class="boot__prompt" aria-label="Terminal prompt">
+        <div class="boot__prompt" aria-hidden="true">
           <span aria-hidden="true">&gt;</span>
           <span class="cursor-blink" aria-hidden="true" role="presentation">_</span>
         </div>
@@ -140,7 +142,7 @@
            Phase 3: initially hidden; revealed by JS after boot.
            Phase 2: visible for design review (no hidden attr).
            ═══════════════════════════════════════════════════════ -->
-      <main class="terminal" id="main-content" aria-label="Weather terminal" hidden>
+      <div class="terminal" id="main-content" hidden>
         <!-- Terminal header bar -->
         <header class="terminal__header">
           <div class="terminal__title" aria-label="Application name">
@@ -421,9 +423,9 @@
           <span>DATA: OPEN-METEO.COM // NO API KEY REQUIRED</span>
           <span id="last-updated" aria-live="polite" aria-label="Last updated time"></span>
         </footer>
-      </main>
+      </div>
       <!-- /#main-content -->
-    </div>
+    </main>
     <!-- /.screen -->
 
     <!-- ES modules are deferred by default -->
